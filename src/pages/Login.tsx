@@ -85,13 +85,13 @@ function Login() {
             pwInputType === "password" ? "tracking-[10px]" : ""
           } border-${
             isLoginError ? "red" : "[#BEBEBE]"
-          } p-3 outline-none placeholder:text-[#E2E2E2] placeholder:tracking-[0px] focus:border-blue focus:border-[2px]`}
+          } p-3 pr-[60px] outline-none placeholder:text-[#E2E2E2] placeholder:tracking-[0px] focus:border-blue focus:border-[2px]`}
           type={pwInputType}
           placeholder="비밀번호 입력"
           value={password}
           onChange={handlePassword}
         />
-        <button className="absolute right-[14px] top-[19px]" onClick={handlePasswordType}>
+        <button className="absolute right-[14px] top-[18px]" onClick={handlePasswordType}>
           <IconEye />
         </button>
       </div>
