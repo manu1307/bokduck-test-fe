@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 import { ReactComponent as IconEye } from "../assets/icon-eye.svg";
 
@@ -9,6 +9,10 @@ function Login() {
   const [isLoginError, setIsLoginError] = useState<boolean>(false);
   const [errorMsg, setErrorMsg] = useState<string>("아이디와 비밀번호를 입력해주세요.");
   const [errorCount, setErrorCount] = useState<number>(0);
+
+  const sendUrl = (url: string) => {
+    window.location.href = url;
+  };
 
   const handleId = (event: ChangeEvent<HTMLInputElement>) => {
     setId(() => {
@@ -34,7 +38,7 @@ function Login() {
   };
   const checkLogin = () => {
     if (id === "park" && password === "1234") {
-      window.location.href = "/";
+      sendUrl("/");
       return;
     }
     console.log(errorCount);
@@ -48,7 +52,7 @@ function Login() {
         setErrorMsg("5회 이상 비밀번호 입력 실패 시 비밀번호 재설정이 필요합니다.");
       } else if (errorCount >= 5) {
         alert("5회 이상 비밀번호 입력 실패하였으므로 비밀번호 재설정이 필요합니다");
-        window.location.href = "/passwordFind";
+        sendUrl("/findpassword");
       } else {
         setErrorMsg("이메일 또는 비밀번호를 잘못 입력하셨거나 등록되지 않은 이메일 입니다");
       }
@@ -68,7 +72,7 @@ function Login() {
         <input
           className={`w-full h-[50px] rounded-[8px] border-[1px] border-${
             isLoginError ? "red" : "[#BEBEBE]"
-          } p-3 outline-none placeholder:text-[#E2E2E2]`}
+          } p-3 outline-none placeholder:text-[#E2E2E2] focus:border-blue focus:border-[2px]`}
           type="text"
           placeholder="아이디(이메일) 입력"
           value={id}
@@ -81,7 +85,7 @@ function Login() {
             pwInputType === "password" ? "tracking-[10px]" : ""
           } border-${
             isLoginError ? "red" : "[#BEBEBE]"
-          } p-3 outline-none placeholder:text-[#E2E2E2] placeholder:tracking-[0px]`}
+          } p-3 outline-none placeholder:text-[#E2E2E2] placeholder:tracking-[0px] focus:border-blue focus:border-[2px]`}
           type={pwInputType}
           placeholder="비밀번호 입력"
           value={password}
@@ -92,7 +96,11 @@ function Login() {
         </button>
       </div>
       <div className="flex gap-2 mt-[6px] text-[12px] justify-end text-[#9A9A9A]">
-        <button>아이디/비밀번호 찾기</button> | <button>회원가입</button>
+        <button>
+          <span onClick={() => sendUrl("/findinfo")}>아이디</span>/
+          <span onClick={() => sendUrl("/findpassword")}>비밀번호 찾기</span>
+        </button>
+        | <button onClick={() => sendUrl("/signup")}>회원가입</button>
       </div>
       <div className="mt-[30px]">
         <div className={`${isLoginError ? "" : "invisible"} text-[10px] text-red`}>{errorMsg}</div>
