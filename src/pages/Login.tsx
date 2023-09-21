@@ -63,7 +63,7 @@ function Login() {
     setIsLoginError(true);
   };
   return (
-    <div className="flex flex-col justify-center w-full mt-[160px]">
+    <div className="flex flex-col justify-center w-full pt-[160px]">
       <div className="flex flex-col items-center gap-[20px] mb-[48px] ">
         <Logo />
         <div className="text-blue text-[30px] font-bold">복덕빵</div>
@@ -100,7 +100,7 @@ function Login() {
           <span onClick={() => sendUrl("/findinfo")}>아이디</span>/
           <span onClick={() => sendUrl("/findpassword")}>비밀번호 찾기</span>
         </button>
-        | <button onClick={() => sendUrl("/signup")}>회원가입</button>
+        | <button onClick={() => sendUrl("/signup/info")}>회원가입</button>
       </div>
       <div className="mt-[30px]">
         <div className={`${isLoginError ? "" : "invisible"} text-[10px] text-red`}>{errorMsg}</div>
