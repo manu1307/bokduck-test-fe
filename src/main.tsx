@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Login from "./pages/Login.tsx";
 import SignUp from "./pages/signup/SignUp.tsx";
 import RootSU from "./pages/signup/RootSU.tsx";
+import Verify from "./pages/signup/Verify.tsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
@@ -13,7 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <RootSU />,
-    children: [{ path: "/signup/info", element: <SignUp /> }],
+    children: [
+      { path: "/signup/info", element: <SignUp /> },
+      { path: "/signup/phone", element: <Verify /> },
+    ],
   },
 ]);
 
