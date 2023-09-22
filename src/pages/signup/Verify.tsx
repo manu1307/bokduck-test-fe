@@ -26,9 +26,12 @@ function Verify() {
   const handleCodeInput = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.value.length >= 4) {
       setVerified(true);
+      // 인증 확인 코드 필요
+      console.log(event.target.value.length);
     }
     setVerificationCode(event.target.value);
   };
+
   const startVerification = () => {
     setSendVerification(true);
   };
@@ -88,13 +91,22 @@ function Verify() {
               value={verificationCode}
               onChange={handleCodeInput}
               maxLength={4}
+              disabled={verified ? true : false}
             />
-            <button className="absolute right-[14px] top-[18px]">
-              <Timer />
-            </button>
+            {verified ? (
+              ""
+            ) : (
+              <button className="absolute right-[14px] top-[18px]">
+                <Timer stop={verified ? true : false} />
+              </button>
+            )}
+          </div>
+          <div className={` w-full flex justify-start mt-[6px] text-[12px] text-[#9A9A9A]`}>
+            입력하신 휴대전화번호로 인증번호(4자리)를 보냈습니다
           </div>
         </div>
       )}
+
       {verified && (
         <div className="absolute bottom-0 left-0 w-full h-[80px] flex items-center justify-center text-[20px] font-bold pb-5 text-white  bg-blue">
           <button>다음</button>
