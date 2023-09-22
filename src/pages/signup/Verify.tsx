@@ -7,6 +7,7 @@ function Verify() {
   const [telecom, setTelecom] = useState<Telecom>("SKT");
   const [phoneNum, setPhoneNum] = useState<string>("");
   const [verificationCode, setVerificationCode] = useState<string>("");
+  const [agreementOpen, setAgreementOpen] = useState<boolean>(false);
 
   const [dropDownOpen, setDropDownOpen] = useState<boolean>(false);
   const [verifyActivate, setVerifyActivate] = useState<boolean>(false);
@@ -30,6 +31,10 @@ function Verify() {
       console.log(event.target.value.length);
     }
     setVerificationCode(event.target.value);
+  };
+
+  const clickNext = () => {
+    setAgreementOpen(true);
   };
 
   const startVerification = () => {
@@ -85,7 +90,7 @@ function Verify() {
         <div>
           <div className="relative w-full mt-[20px]">
             <input
-              className={` w-full border-b-2 text-[20px] p-[6px] pr-[60px] border-[#E2E2E2] focus:border-blue focus:outline-none tracking-[10px]  placeholder:text-[#BEBEBE] placeholder:tracking-[0] `}
+              className={` w-full border-b-2 text-[20px] p-[6px] pr-[60px] border-[#E2E2E2] focus:border-blue focus:outline-none tracking-[10px]  placeholder:text-[#BEBEBE] placeholder:tracking-[0] disabled:bg-white `}
               placeholder="인증번호 입력"
               type="password"
               value={verificationCode}
@@ -108,9 +113,50 @@ function Verify() {
       )}
 
       {verified && (
-        <div className="absolute bottom-0 left-0 w-full h-[80px] flex items-center justify-center text-[20px] font-bold pb-5 text-white  bg-blue">
-          <button>다음</button>
-        </div>
+        <>
+          <div className="absolute bottom-0 left-0 w-full h-[80px] flex items-center justify-center text-[20px] font-bold pb-5 text-white  bg-blue">
+            <button onClick={clickNext}>다음</button>
+          </div>
+          {agreementOpen && (
+            <div
+              className="absolute top-0 left-0 w-full h-full bg-[#7b7b7bce]"
+              onClick={() => {
+                setAgreementOpen(false);
+              }}
+            >
+              <div className="agreement z-10 rounded-t-lg bg-white absolute bottom-0 left-0 w-full h-[380px] p-[20px]">
+                <div className="flex p-[12px] gap-4">
+                  <input type="checkbox" />
+                  <div>전체동의</div>
+                </div>
+                <div className="flex p-[12px] gap-4">
+                  <input type="checkbox" required />
+                  <div>[필수] 만 14세 이상</div>
+                </div>
+                <div className="flex p-[12px] gap-4">
+                  <input type="checkbox" required />
+                  <div>[필수] 이용약관 동의</div>
+                </div>
+                <div className="flex p-[12px] gap-4">
+                  <input type="checkbox" />
+                  <div>[필수] 개인정보수집 및 이용 동의</div>
+                </div>
+                <div className="flex p-[12px] gap-4">
+                  <input type="checkbox" />
+                  <div>[필수] 개인정보 제 3자 제공 및 위탁동의</div>
+                </div>
+                <div className="flex p-[12px] gap-4">
+                  <input type="checkbox" />
+                  <div>[필수] 위치정보이용약관 동의</div>
+                </div>
+                <div className="flex p-[12px] gap-4">
+                  <input type="checkbox" />
+                  <div>[선택] 마케팅 수신 동의</div>
+                </div>
+              </div>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
