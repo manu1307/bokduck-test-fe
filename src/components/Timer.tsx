@@ -9,7 +9,6 @@ const secondFormat = (second: number) => {
   return second;
 };
 function Timer({ stop }: TimerProps) {
-  console.log(stop);
   const [time, setTime] = useState<number>(180);
   useEffect(() => {
     const timer = setInterval(() => {
@@ -23,7 +22,7 @@ function Timer({ stop }: TimerProps) {
       clearInterval(timer);
     }
     return () => clearInterval(timer);
-  }, [time]);
+  }, [time, stop]);
 
   return <div>{`${Math.floor(time / 60)} : ${secondFormat(time % 60)} `}</div>;
 }

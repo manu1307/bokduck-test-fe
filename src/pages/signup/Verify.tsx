@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { ReactComponent as Arrow } from "../../assets/under-arrow.svg";
 import Timer from "../../components/Timer";
 
@@ -9,11 +9,29 @@ function Verify() {
   const [verificationCode, setVerificationCode] = useState<string>("");
   const [agreementOpen, setAgreementOpen] = useState<boolean>(false);
 
+  const [amAll, setAmAll] = useState<boolean>(false);
+  const [amOne, setamOne] = useState<boolean>(false);
+  const [amTwo, setamTwo] = useState<boolean>(false);
+  const [amThree, setamThree] = useState<boolean>(false);
+  const [amFour, setamFour] = useState<boolean>(false);
+  const [amFive, setamFive] = useState<boolean>(false);
+  const [amSix, setamSix] = useState<boolean>(false);
+  const [amNext, setAmNext] = useState<boolean>(false);
+
   const [dropDownOpen, setDropDownOpen] = useState<boolean>(false);
   const [verifyActivate, setVerifyActivate] = useState<boolean>(false);
   const [sendVerification, setSendVerification] = useState<boolean>(false);
   const [verified, setVerified] = useState<boolean>(false);
 
+  const handleAllCheck = (bool: boolean) => {
+    setAmAll(bool);
+    setamOne(bool);
+    setamTwo(bool);
+    setamThree(bool);
+    setamFour(bool);
+    setamFive(bool);
+    setamSix(bool);
+  };
   const handleDropDown = (telecom: Telecom) => {
     setTelecom(telecom);
     setDropDownOpen(false);
@@ -28,7 +46,6 @@ function Verify() {
     if (event.target.value.length >= 4) {
       setVerified(true);
       // 인증 확인 코드 필요
-      console.log(event.target.value.length);
     }
     setVerificationCode(event.target.value);
   };
@@ -40,6 +57,23 @@ function Verify() {
   const startVerification = () => {
     setSendVerification(true);
   };
+  const handleAllClicked = () => {
+    setAmAll((prev) => {
+      if (!prev) {
+        handleAllCheck(true);
+      } else {
+        handleAllCheck(false);
+      }
+      return !prev;
+    });
+  };
+  useEffect(() => {
+    if (amOne && amTwo && amThree && amFour && amFive) {
+      setAmNext(true);
+    } else {
+      setAmNext(false);
+    }
+  }, [amOne, amTwo, amThree, amFour, amFive]);
 
   return (
     <div>
@@ -113,50 +147,89 @@ function Verify() {
       )}
 
       {verified && (
-        <>
-          <div className="absolute bottom-0 left-0 w-full h-[80px] flex items-center justify-center text-[20px] font-bold pb-5 text-white  bg-blue">
-            <button onClick={clickNext}>다음</button>
+        <div>
+          <div
+            className="absolute bottom-0 left-0 w-full h-[80px] flex items-center justify-center text-[20px] font-bold pb-5 text-white  bg-blue"
+            onClick={clickNext}
+          >
+            <button>다음</button>
           </div>
           {agreementOpen && (
-            <div
-              className="absolute top-0 left-0 w-full h-full bg-[#7b7b7bce]"
-              onClick={() => {
-                setAgreementOpen(false);
-              }}
-            >
-              <div className="agreement z-10 rounded-t-lg bg-white absolute bottom-0 left-0 w-full h-[380px] p-[20px]">
+            <>
+              <div
+                className="absolute top-0 left-0 w-full h-full bg-[#7b7b7bce]"
+                onClick={() => {
+                  setAgreementOpen(false);
+                  handleAllCheck(false);
+                }}
+              ></div>
+              <div className="agreement z-10 rounded-t-lg bg-white absolute bottom-0 left-0 w-full h-fit p-[20px]">
                 <div className="flex p-[12px] gap-4">
-                  <input type="checkbox" />
+                  <input type="checkbox" onChange={() => handleAllClicked()} checked={amAll} />
                   <div>전체동의</div>
                 </div>
                 <div className="flex p-[12px] gap-4">
-                  <input type="checkbox" required />
+                  <input
+                    type="checkbox"
+                    required
+                    checked={amOne}
+                    onChange={({ target: { checked } }) => setamOne(checked)}
+                  />
                   <div>[필수] 만 14세 이상</div>
                 </div>
                 <div className="flex p-[12px] gap-4">
-                  <input type="checkbox" required />
+                  <input
+                    type="checkbox"
+                    required
+                    checked={amTwo}
+                    onChange={({ target: { checked } }) => setamTwo(checked)}
+                  />
                   <div>[필수] 이용약관 동의</div>
                 </div>
                 <div className="flex p-[12px] gap-4">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    required
+                    checked={amThree}
+                    onChange={({ target: { checked } }) => setamThree(checked)}
+                  />
                   <div>[필수] 개인정보수집 및 이용 동의</div>
                 </div>
                 <div className="flex p-[12px] gap-4">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    required
+                    checked={amFour}
+                    onChange={({ target: { checked } }) => setamFour(checked)}
+                  />
                   <div>[필수] 개인정보 제 3자 제공 및 위탁동의</div>
                 </div>
                 <div className="flex p-[12px] gap-4">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    required
+                    checked={amFive}
+                    onChange={({ target: { checked } }) => setamFive(checked)}
+                  />
                   <div>[필수] 위치정보이용약관 동의</div>
                 </div>
                 <div className="flex p-[12px] gap-4">
-                  <input type="checkbox" />
+                  <input
+                    type="checkbox"
+                    checked={amSix}
+                    onChange={({ target: { checked } }) => setamSix(checked)}
+                  />
                   <div>[선택] 마케팅 수신 동의</div>
                 </div>
+                {amNext && (
+                  <button className="bg-blue w-full h-[50px] mt-[20px]  rounded-[8px] text-[16px] font-bold text-white">
+                    완료
+                  </button>
+                )}
               </div>
-            </div>
+            </>
           )}
-        </>
+        </div>
       )}
     </div>
   );
