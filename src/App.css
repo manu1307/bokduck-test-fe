@@ -7,6 +7,10 @@
   animation: slideup 0.6s ease-in 1;
 }
 
+.full-height-without-header {
+  height: calc(100vh - 100px);
+}
+
 @keyframes slideup {
   0% {
     height: 0;

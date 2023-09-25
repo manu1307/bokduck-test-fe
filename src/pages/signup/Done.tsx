@@ -3,12 +3,12 @@ import { sendUrl } from "../../utils/SendUrl";
 
 function Done() {
   return (
-    <div className="flex flex-col items-center justify-center w-full h-full ">
-      <div className="mt-[130px]">
+    <div className="flex flex-col items-center w-full justify-evenly full-height-without-header ">
+      <div className="">
         <Logo />
         <div className="text-[30px] text-blue font-bold mt-[24px]">복덕방</div>
       </div>
-      <div className="mt-[105px]">
+      <div className="">
         <span className="text-[24px]"> abcdefg 님</span> <br />
         <span className="text-[30px]"> 환영합니다!</span>
       </div>
