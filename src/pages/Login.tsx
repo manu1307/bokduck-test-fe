@@ -83,8 +83,8 @@ function Login() {
         <input
           className={`w-full h-[50px] rounded-[8px] border-[1px] ${
             pwInputType === "password" ? "tracking-[10px]" : ""
-          } border-${
-            isLoginError ? "red" : "[#BEBEBE]"
+          } ${
+            isLoginError ? "border-red" : "border-[#BEBEBE]"
           } p-3 pr-[60px] outline-none placeholder:text-[#E2E2E2] placeholder:tracking-[0px] focus:border-blue focus:border-[2px]`}
           type={pwInputType}
           placeholder="비밀번호 입력"

@@ -7,6 +7,7 @@ import Login from "./pages/Login.tsx";
 import SignUp from "./pages/signup/SignUp.tsx";
 import RootSU from "./pages/signup/RootSU.tsx";
 import Verify from "./pages/signup/Verify.tsx";
+import Done from "./pages/signup/Done.tsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <App /> },
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/signup/info", element: <SignUp /> },
       { path: "/signup/phone", element: <Verify /> },
+      { path: "/signup/done", element: <Done /> },
     ],
   },
 ]);

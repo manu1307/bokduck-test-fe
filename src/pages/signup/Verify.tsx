@@ -1,6 +1,7 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { ReactComponent as Arrow } from "../../assets/under-arrow.svg";
 import Timer from "../../components/Timer";
+import { sendUrl } from "../../utils/SendUrl";
 
 type Telecom = "SKT" | "KT" | "LGU+";
 function Verify() {
@@ -222,7 +223,10 @@ function Verify() {
                   <div>[선택] 마케팅 수신 동의</div>
                 </div>
                 {amNext && (
-                  <button className="bg-blue w-full h-[50px] mt-[20px]  rounded-[8px] text-[16px] font-bold text-white">
+                  <button
+                    className="bg-blue w-full h-[50px] mt-[20px]  rounded-[8px] text-[16px] font-bold text-white"
+                    onClick={() => sendUrl("/signup/done")}
+                  >
                     완료
                   </button>
                 )}
